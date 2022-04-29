@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 
-export default function Brands() {
+export default function Brands({ className }) {
   return (
-    <section className="brand-partner text-center">
+    <section className={`brand-partner text-center ${className}`}>
       <p>Events held by top & biggest global companies</p>
       <div className="d-flex flex-row flex-wrap justify-content-center align-items-center">
         <img src="images/apple-111.svg" alt="semina" />

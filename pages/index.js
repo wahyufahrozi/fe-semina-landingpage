@@ -4,13 +4,13 @@ import Brands from "../components/Brands";
 import CardEvent from "../components/CardEvent";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import Navbar from "../components/Navbar";
+
 import Statistics from "../components/Statistics";
 import Stories from "../components/Stories";
 
-import styles from "../styles/Home.module.css";
+import { getData } from "../utils/fetchData";
 
-export default function Home() {
+export default function Home({ data }) {
   return (
     <>
       <Head>
@@ -20,10 +20,19 @@ export default function Home() {
       </Head>
       <Header />
       <Brands />
-      <CardEvent data={[]} title="Featured Event" subTitle="Grow Today" />
+      <CardEvent data={data} title="Featured Event" subTitle="Grow Today" />
       <Stories />
       <Statistics />
       <Footer />
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const req = await getData("api/v1/participants/landing-page");
+  const res = req.data;
+
+  return {
+    props: { data: res },
+  };
 }
