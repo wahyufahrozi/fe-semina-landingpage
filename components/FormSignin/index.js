@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { postData } from "../../utils/fetchData";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import jwt_decode from "jwt-decode";
 
 export default function FormSignin() {
   const router = useRouter();
@@ -20,18 +21,21 @@ export default function FormSignin() {
   const handleSubmit = async () => {
     try {
       const res = await postData("api/v1/participants/auth/signin", form);
-
-      toast.success("berhasil signin", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      Cookies.set("token", res.data.token);
-      router.push("/");
+      if (res.data) {
+        toast.success("berhasil signin", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        Cookies.set("token", res.data.token);
+        router.push("/");
+      }
+      // const data = jwt_decode(res.data.token);
+      // console.log("data decode", data);
     } catch (err) {}
   };
 

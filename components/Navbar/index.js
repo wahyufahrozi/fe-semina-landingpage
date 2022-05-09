@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import jwt_decode from "jwt-decode";
 import NavLink from "../NavLink";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
@@ -9,12 +10,26 @@ import Button from "../Button";
 export default function Navbar() {
   const router = useRouter();
   const [token, setToken] = useState("");
+  // const [user, setUser] = useState("");
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
+    // setToken(Cookies.get("token"));
+    // setUser(jwt_decode(token));
     return setToken(Cookies.get("token"));
+    // console.log("setToken", Cookies.get("user"));
   });
 
+  // let data = Cookies.get("token");
+  // let user = jwt_decode(data);
+  // console.log("asdf", user);
+  // var decodedHeader = jwt_decode(token);
+  // console.log(data);
+  // console.log(decodedHeader);
+  // console.log(user);
+  // console.log(jwt_decode(token));
+  // let user = jwt_decode(token);
+  // console.log(user.name);
   const handleLogout = () => {
     console.log("click");
     Cookies.remove("token");
@@ -58,7 +73,7 @@ export default function Navbar() {
                 <div className="navbar-nav ms-auto">
                   <div className="nav-item dropdown d-flex flex-column flex-lg-row align-items-lg-center authenticated gap-3">
                     <span className="text-light d-none d-lg-block">
-                      Hello, Shayna M
+                      Hello, user
                     </span>
 
                     <a
